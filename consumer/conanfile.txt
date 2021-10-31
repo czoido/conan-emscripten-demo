@@ -1,0 +1,6 @@
+[requires]
+emsdk-demo-pkg/0.1
+[imports]
+bin, *.html -> ./bin
+bin, *.wasm -> ./bin
+bin, *.js -> ./bin
