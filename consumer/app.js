@@ -1,11 +1,11 @@
-const c_funtions = require('./c-functions.js');
-const cpp_funtions = require('./cpp-functions.js')
+const c_funtions = require('./bin/c-functions.js');
+const cpp_funtions = require('./bin/cpp-functions.js')
 
 c_funtions().then((instance) => {
-    instance._zlibversion(); // direct calling works
-    instance.ccall("zlibversion"); // using ccall etc. also work
+    instance._ZlibVersion(); // direct calling works
+    instance.ccall("ZlibVersion"); // using ccall etc. also work
 });
 
 cpp_funtions.onRuntimeInitialized = async _ => {
-    cpp_funtions.zlibversion();
+    cpp_funtions.ZlibVersion();
 }

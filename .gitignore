@@ -1,1 +1,7 @@
 .DS_Store
+consumer/conan_imports_manifest.txt
+consumer/conan.lock
+consumer/conanbuildinfo.txt
+consumer/conaninfo.txt
+consumer/graph_info.json
+consumer/bin
