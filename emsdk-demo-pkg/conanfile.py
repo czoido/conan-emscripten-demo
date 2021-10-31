@@ -1,4 +1,5 @@
-from conans import ConanFile, CMake
+from conans import ConanFile
+from conan.tools.cmake import CMake
 
 
 class ConanEmsdkDemo(ConanFile):
@@ -9,20 +10,17 @@ class ConanEmsdkDemo(ConanFile):
     license = "MIT"
     url = "https://github.com/czoido/conan-emscripten-demo"
     homepage = "https://github.com/czoido/conan-emscripten-demo"
-    settings = {"os": ["Emscripten"]}
+    settings = "os", "arch", "compiler", "build_type"
     requires = "zlib/1.2.11"
     exports_sources = ["CMakeLists.txt", "cpp-functions.cpp", "c-functions.c"]
-    generators = ["cmake"]
-
-    def _configure_cmake(self):
-        cmake = CMake(self)
-        cmake.configure()
-        return cmake
+    generators = "CMakeDeps", "CMakeToolchain"
 
     def build(self):
-        cmake = self._configure_cmake()
+        cmake = CMake(self)
+        cmake.configure()
         cmake.build()
 
     def package(self):
-        cmake = self._configure_cmake()
+        cmake = CMake(self)
+        cmake.configure()
         cmake.install()

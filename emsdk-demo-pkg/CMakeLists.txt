@@ -1,14 +1,13 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.15)
 
 project(ConanHello)
 
-include(conanbuildinfo.cmake)
-conan_basic_setup()
+find_package(ZLIB REQUIRED)
 
 add_executable(c-functions c-functions.c)
-target_include_directories(c-functions PRIVATE ${CONAN_INCLUDE_DIRS})
-target_link_libraries(c-functions PRIVATE ${CONAN_LIBS})
-set_target_properties(c-functions PROPERTIES LINK_FLAGS "-o c-functions.js -s MODULARIZE -s EXPORTED_RUNTIME_METHODS=['ccall','cwrap']")
+set_target_properties(c-functions PROPERTIES LINK_FLAGS "-s MODULARIZE -s EXPORTED_RUNTIME_METHODS=['ccall','cwrap']")
+set_target_properties(c-functions PROPERTIES SUFFIX ".js")
+target_link_libraries(c-functions PRIVATE zlib::zlib)
 
 install(TARGETS c-functions
   RUNTIME DESTINATION bin
@@ -16,14 +15,14 @@ install(TARGETS c-functions
   ARCHIVE DESTINATION lib)
   
 install(FILES
-  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/c-functions.js
-  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/c-functions.wasm
+  c-functions.js
+  c-functions.wasm
   DESTINATION bin)
 
 add_executable(cpp-functions cpp-functions.cpp)
-target_include_directories(cpp-functions PRIVATE ${CONAN_INCLUDE_DIRS})
-target_link_libraries(cpp-functions PRIVATE ${CONAN_LIBS})
-set_target_properties(cpp-functions PROPERTIES LINK_FLAGS "--bind -o cpp-functions.js -s EXPORTED_FUNCTIONS=[] -s EXPORTED_RUNTIME_METHODS=['ccall','cwrap']")
+set_target_properties(cpp-functions PROPERTIES LINK_FLAGS "--bind -s EXPORTED_FUNCTIONS=[] -s EXPORTED_RUNTIME_METHODS=['ccall','cwrap']")
+set_target_properties(cpp-functions PROPERTIES SUFFIX ".js")
+target_link_libraries(cpp-functions PRIVATE zlib::zlib)
 
 install(TARGETS cpp-functions
   RUNTIME DESTINATION bin
@@ -31,6 +30,6 @@ install(TARGETS cpp-functions
   ARCHIVE DESTINATION lib)
   
 install(FILES
-  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cpp-functions.js
-  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cpp-functions.wasm
+  cpp-functions.js
+  cpp-functions.wasm
   DESTINATION bin)
