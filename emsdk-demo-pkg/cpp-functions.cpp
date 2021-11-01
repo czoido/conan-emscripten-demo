@@ -5,8 +5,8 @@
 
 using namespace emscripten;
 
-void ZlibVersion(){
-  std::cout << "Using zlib version: " << zlibVersion() << " in C++" << std::endl;
+std::string ZlibVersion(){
+  return std::string(zlibVersion());
 }
 
 EMSCRIPTEN_BINDINGS(cpp_functions) {
