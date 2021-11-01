@@ -15,7 +15,7 @@ install(FILES
   DESTINATION bin)
 
 add_executable(cpp-functions cpp-functions.cpp)
-set_target_properties(cpp-functions PROPERTIES LINK_FLAGS "--bind -s EXPORTED_FUNCTIONS=[] -s EXPORTED_RUNTIME_METHODS=['ccall','cwrap']")
+set_target_properties(cpp-functions PROPERTIES LINK_FLAGS "--bind")
 set_target_properties(cpp-functions PROPERTIES SUFFIX ".js")
 target_link_libraries(cpp-functions PRIVATE zlib::zlib)
   
